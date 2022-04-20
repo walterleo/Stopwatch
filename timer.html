@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timers</title>
+    <style>
+        body {
+            background-color: bisque;
+        }
+
+        .title {
+            margin-top: 60px;
+            font-size: 60px;
+        }
+
+        .watch {
+            margin-top: 40px;
+        }
+
+        input[type=text] {
+            width: 30%;
+            padding: 12px 20px;
+            margin: 10px 0px;
+            box-sizing: border-box;
+            border: none;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 40px;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        button {
+            font-size: 25px;
+            width: 20%;
+            margin: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <div class="title">
+            <h1>Timer</h1>
+            <input type="text" placeholder="00 mm" id="mm" />
+            <input type="text" placeholder="00 ss" id="ss" />
+        </div>
+        <div class="watch">
+            <button onclick="start();">Start</button>
+            <button onclick="reset();"> Reset</button>
+        </div>
+    </center>
+</body>
+<script>
+    function start() {
+
+        let secs = +document.getElementById('ss').value;
+        let mins = +document.getElementById("mm").value;
+        let myInterval = setInterval(() => {
+            if(secs == 00 && mins == 00 ){
+                clearInterval(myInterval);
+                let audio = new Audio('./timers_alarm.wav');
+                audio.play();
+                return;
+            }
+
+
+            if (secs == 00 ) {
+                clearInterval(myInterval);
+                document.getElementById('ss').value = 4;
+                mins = +document.getElementById("mm").value;
+                if (mins < 11) {
+                document.getElementById('mm').value = '0' + --mins;
+            } else {
+                document.getElementById('mm').value = --mins;
+            }
+                return start();
+
+            }
+           
+            if (secs < 11) {
+                document.getElementById('ss').value = '0' + --secs;
+            } else {
+                document.getElementById('ss').value = --secs;
+            }
+        }, 1000);
+
+    }
+    function startMins() {
+       
+    }
+
+    function reset() {
+        window.location.href = 'timer.html';
+    }
+
+
+
+</script>
+
+</html>
